@@ -3,7 +3,9 @@ plugins {
 }
 
 dependencies {
-   testImplementation(libs.bundles.testing)
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {
@@ -11,7 +13,7 @@ tasks.test {
 
     testLogging {
         if (System.getenv("CI") == "true") {
-            events("failed", "skipped", "passed")
+            events("PASSED", "FAILED", "SKIPPED")
         }
         setExceptionFormat("full")
     }

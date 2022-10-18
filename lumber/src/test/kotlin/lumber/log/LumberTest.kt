@@ -29,6 +29,7 @@ class LumberTest : FunSpec({
             .toList()
             .filter { it.contains("LumberTest") }
             .map { manager.getLogger(it) }
+            .filterNotNull()
             .forEach { logger ->
                 logger.handlers.forEach { logger.removeHandler(it) }
 

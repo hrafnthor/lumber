@@ -1,17 +1,13 @@
 [versions]
-logBack = "1.4.4"
+jupiter = "5.6.2"
 kotlin = "1.7.10"
 kotest = "5.3.2"
 mavenPublish = "0.21.0"
 
-
 [libraries]
-logback-classic = { group = "ch.qos.logback", name="logback-classic", version.ref = "logBack"}
+junit-jupiter = { group ="org.junit.jupiter", name = "junit-jupiter", version.ref = "jupiter"}
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-
-[bundles]
-testing = ["kotest-runner-junit5", "kotest-assertions-core", "logback-classic"]
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
