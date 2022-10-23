@@ -406,7 +406,4 @@ class Lumber private constructor(){
         private val trees = ArrayList<Tree>()
         @Volatile private var treeArray = emptyArray<Tree>()
     }
-
-
 }
-
