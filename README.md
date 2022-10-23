@@ -3,6 +3,9 @@ A logger based entirely on [Timber]'s excellent small, extensible API.
 
 I needed similar logging functionality in a pure Kotlin module, and so Lumber was born.
 
+Lumber comes with an accompanying library `lumber-android` that contains a debug tree configured
+in a similar fashion as Timber's `DebugTree`.
+
 Behavior is added through `Tree` instances. You can install an instance by calling `Lumber.plant`.
 Installation of `Tree`s should be done as early as possible. 
 
@@ -18,9 +21,10 @@ Usage
 
 Two easy steps:
 
-1. Install any `Tree` instances you want early on in your application.
+1. Install any `Tree` instances you want early on in your application. 
+   - You can use `is.hth:lumber-android` and it's `AndroidDebugTree` in Android applications to 
+     achieve the same functionality as when using Timber's `DebugTree`
 2. Call `Lumber`'s static methods everywhere throughout your app.
-
 
 Download
 --------
@@ -31,7 +35,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'is.hth:lumber:0.1.0'
+  implementation 'is.hth:lumber:0.1.1'
 }
 ```
 
@@ -48,7 +52,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'is.hth:lumber:0.1.0-SNAPSHOT'
+  implementation 'is.hth:lumber:0.1.2-SNAPSHOT'
 }
 ```
 
