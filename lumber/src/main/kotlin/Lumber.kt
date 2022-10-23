@@ -20,7 +20,7 @@ class Lumber private constructor(){
         internal val explicitTag = ThreadLocal<String>()
 
         @get:JvmSynthetic // Hide from public API.
-        internal open val tag: String?
+        protected open val tag: String?
             get() {
                 val tag = explicitTag.get()
                 if (tag != null) {
@@ -28,7 +28,6 @@ class Lumber private constructor(){
                 }
                 return tag
             }
-
 
         /** Log a verbose message with optional format args. */
         open fun v(message: String?, vararg args: Any?) {
@@ -173,12 +172,14 @@ class Lumber private constructor(){
 
     /** A [Tree] for debug builds. Automatically infers the tag from the calling class. */
     open class DebugTree: Tree() {
-        private val fqcnIgnore = listOf(
+        private val fqcnIgnore: Set<String> = mutableSetOf(
             Lumber::class.java.name,
             Forest::class.java.name,
             Tree::class.java.name,
             DebugTree::class.java.name
-        )
+        ).apply(::addToIgnore)
+
+        protected open fun addToIgnore(set: MutableSet<String>) {}
 
         override val tag: String?
             get() = super.tag ?: Throwable().stackTrace
@@ -204,7 +205,7 @@ class Lumber private constructor(){
         /**
          * Retrieves a [Logger] associated with the supplied tag for use in logging.
          */
-        protected open fun getLogger(tag: String): Logger {
+        internal open fun getLogger(tag: String): Logger {
             return Logger.getLogger(tag).apply {
                 level = Level.ALL
             }
@@ -236,11 +237,11 @@ class Lumber private constructor(){
 
     companion object Forest : Tree() {
 
-        const val VERBOSE = 1
-        const val DEBUG = 2
-        const val INFO = 3
-        const val WARNING = 4
-        const val ERROR = 5
+        const val VERBOSE = 2
+        const val DEBUG = 3
+        const val INFO = 4
+        const val WARNING = 5
+        const val ERROR = 6
 
         /** Log a verbose message with optional format args. */
         @JvmStatic override fun v(@NonNls message: String?, vararg args: Any?) {
@@ -347,7 +348,7 @@ class Lumber private constructor(){
         @JvmStatic inline fun asTree(): Tree = this
 
         /** Set a one-time tag for use on the next logging call. */
-        @JvmStatic fun tag(tag: String): Tree {
+        @JvmStatic  fun tag(tag: String): Tree {
             for (tree in treeArray) {
                 tree.explicitTag.set(tag)
             }
@@ -405,7 +406,4 @@ class Lumber private constructor(){
         private val trees = ArrayList<Tree>()
         @Volatile private var treeArray = emptyArray<Tree>()
     }
-
-
 }
-

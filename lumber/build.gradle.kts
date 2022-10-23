@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    id("kotlin")
     alias(libs.plugins.mavenPublish)
 }
 
@@ -9,13 +9,6 @@ dependencies {
     testImplementation(libs.junit.jupiter)
 }
 
-tasks.test {
+tasks.withType(Test::class).configureEach {
     useJUnitPlatform()
-
-    testLogging {
-        if (System.getenv("CI") == "true") {
-            events("PASSED", "FAILED", "SKIPPED")
-        }
-        setExceptionFormat("full")
-    }
 }

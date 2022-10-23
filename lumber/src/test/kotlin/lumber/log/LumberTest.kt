@@ -28,12 +28,8 @@ class LumberTest : FunSpec({
         manager.loggerNames
             .toList()
             .filter { it.contains("LumberTest") }
-            .map { manager.getLogger(it) }
-            .filterNotNull()
-            .forEach { logger ->
-                logger.handlers.forEach { logger.removeHandler(it) }
-
-            }
+            .mapNotNull(manager::getLogger)
+            .forEach { it.handlers.forEach(it::removeHandler) }
         manager.reset()
     }
 
@@ -421,16 +417,16 @@ class LumberTest : FunSpec({
         Lumber.tag("Custom").e("Error")
 
         logs.shouldContainExactly(
-            "1 LumberTest Verbose",
-            "1 Custom Verbose",
-            "2 LumberTest Debug",
-            "2 Custom Debug",
-            "3 LumberTest Info",
-            "3 Custom Info",
-            "4 LumberTest Warn",
-            "4 Custom Warn",
-            "5 LumberTest Error",
-            "5 Custom Error",
+            "2 LumberTest Verbose",
+            "2 Custom Verbose",
+            "3 LumberTest Debug",
+            "3 Custom Debug",
+            "4 LumberTest Info",
+            "4 Custom Info",
+            "5 LumberTest Warn",
+            "5 Custom Warn",
+            "6 LumberTest Error",
+            "6 Custom Error",
         )
     }
 
