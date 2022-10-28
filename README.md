@@ -1,4 +1,6 @@
 # Lumber
+[![Maven Central](https://img.shields.io/maven-central/v/is.hth/lumber.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22is.hth%22%20AND%20a:%22lumber%22)
+
 A logger based entirely on [Timber]'s excellent small, extensible API.
 
 I needed similar logging functionality in a pure Kotlin module, and so Lumber was born.
