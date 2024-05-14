@@ -18,7 +18,7 @@ jobs:
           distribution: 'zulu'
           java-version: 18
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/actions/setup-gradle@v3
 
       - name: Test
         run: ./gradlew build
@@ -37,7 +37,7 @@ jobs:
           distribution: 'zulu'
           java-version: 18
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/actions/setup-gradle@v3
 
       - name: Sign and upload artifacts
         run: ./gradlew publish
